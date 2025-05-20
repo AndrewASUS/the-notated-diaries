@@ -34,9 +34,9 @@ const CreatePage = () => {
         status: 'success',
         isClosable: true
       })
+      navigate("/")
     }
     setNewStory({ consultant: "", title: "",  entry: "" })
-    navigate("/")
   }
 
 
