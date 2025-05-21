@@ -5,27 +5,29 @@ export const useStoryStore = create((set) => ({
     stories: [],
     setStories: (stories) => set({ stories }),
 
-    createStory: async(newStory) => {
+    createStory: async (newStory) => {
         if (!newStory.consultant || !newStory.title || !newStory.entry) {
-            return {success:false, message: "Please fill in all fields."}
+            return { success: false, message: "Please fill in all fields." }
         }
         const res = await fetch("/api/stories", {
             method: "POST",
-            headers:{
-                "Content-Type":"application/json"
+            headers: {
+                "Content-Type": "application/json"
             },
-            body:JSON.stringify(newStory)
+            body: JSON.stringify(newStory)
         })
         const data = await res.json()
-        set((state) => ({stories:[...state.stories, data.data]}))
-        return {success:true, message:"Story created successfully."}
+        set((state) => ({ stories: [...state.stories, data.data] }))
+        return { success: true, message: "Story created successfully." }
     },
 
 
     getStories: async () => {
         const res = await fetch("/api/stories")
         const data = await res.json()
-        set({ stories: data.data })
+        
+        const sortedStories = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        set({ stories: sortedStories });
 
     },
 
@@ -57,7 +59,7 @@ export const useStoryStore = create((set) => ({
     //     const data = await res.json()
     //     if (!data.success) return { success: false, message: data.message }
 
-           // Updates the UI immediately, without freshing the page
+    // Updates the UI immediately, without freshing the page
     //     set(state => ({ stories: state.stories.filter(story => story._id !== pid) }))
     //     return { success: true, message: data.message }
     // },

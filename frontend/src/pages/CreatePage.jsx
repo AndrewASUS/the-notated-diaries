@@ -46,28 +46,31 @@ const CreatePage = () => {
       <VStack
         spacing={8}
       >
-        <Heading as={"h1"} size={"2xl"} textAlign={"center"} mb={8} >
+        <Heading as={"h1"} size={"2xl"} textAlign={"center"} mb={8}>
           Create New Notated Story
         </Heading>
         <Box
-          w={"full"} bg={useColorModeValue("white", "gray.800")}
+          w={"full"} bg={useColorModeValue("white", "gray.800")} border="1px" borderColor="gray.300"
           p={6} rounded={"lg"} shadow={"md"}
         >
 
         <VStack spacing={4}>
           <Input 
+            border="1px" borderColor="gray.300"
             placeholder='Add the donut that quoted such wisdom...'
             consultant='consultant'
             value={newStory.consultant}
             onChange={(e) => setNewStory({ ...newStory, consultant: e.target.value})}
           />
           <Input 
+            border="1px" borderColor="gray.300"
             placeholder='Add a title...'
             title='title'
             value={newStory.title}
             onChange={(e) => setNewStory({ ...newStory, title: e.target.value})}
           />
           <Textarea 
+            border="1px" borderColor="gray.300"
             placeholder='Add your notated story..'
             entry='entry'
             rows={4}
