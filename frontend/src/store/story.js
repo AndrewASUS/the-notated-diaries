@@ -25,8 +25,8 @@ export const useStoryStore = create((set) => ({
     getStories: async () => {
         const res = await fetch("/api/stories")
         const data = await res.json()
-        
-        const sortedStories = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+        const sortedStories = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // This sends the data in descending order
         set({ stories: sortedStories });
 
     },
