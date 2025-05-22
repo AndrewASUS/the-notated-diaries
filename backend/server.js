@@ -19,7 +19,7 @@ app.use(express.json()) // Allows to accept JSON data in the body
 
 app.use("/api/stories", storyRoutes)
 
-if(process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "/frontend/dist")))
 
     app.get("/{*any}", (req, res) => {
@@ -27,7 +27,10 @@ if(process.env.NODE_ENV === "production") {
     })
 }
 
-app.listen(PORT, () => {
-    console.log("Server stareted at http://localhost:" + PORT)
-    connectDB()
+
+
+connectDB().then(() => {
+    app.listen(PORT, () => {
+        console.log("Server stareted at http://localhost:" + PORT)
+    })
 })
