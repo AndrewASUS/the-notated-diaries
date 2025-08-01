@@ -3,9 +3,6 @@ import dotenv from "dotenv"
 import { connectDB } from "./config/db.js"
 import storyRoutes from "./routes/story.route.js"
 import path from "path" // const __dirname = path.resolve()
-import job from "./config/cron.js"
-
-
 
 dotenv.config()
 
@@ -15,18 +12,7 @@ const PORT = process.env.PORT || 5000
 const __dirname = path.resolve()
 
 
-// Calling cron to send an GET request to render.com every 14 minutes 
-if (process.env.NODE_ENV === "production") job.start()
-
-
 app.use(express.json()) // Allows to accept JSON data in the body
-
-
-// Check the health of your backend URL
-app.get("/api/health", (req, res) => {
-    res.status(200).json({ success: true })
-})
-
 
 
 app.use("/api/stories", storyRoutes)
@@ -38,7 +24,6 @@ if (process.env.NODE_ENV === "production") {
         res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"))
     })
 }
-
 
 
 connectDB().then(() => {
